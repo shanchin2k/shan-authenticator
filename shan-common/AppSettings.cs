@@ -80,5 +80,13 @@ namespace Shan.Authentication.API.Common
         /// If there are different scopes specified, those will be mentioned with space 
         /// </summary>        
         public string ApiScopes { get; set; }
+
+        /// <summary>
+        /// Virtual directory where the app is deployed
+        /// Usually in the form of '/' in case the site is deployed under root directory ('/wwwroot')
+        ///                         '/v1' in case the site is deployed under folder '/site/wwwroot/v1'
+        /// This value is used to form the url to redirect upon SignIn/SignOut operation completion 
+        /// </summary>        
+        public string VirtualDirectory { get; set; }
     }
 }

@@ -43,7 +43,7 @@ namespace Shan.Authentication.API.Web.ApiHelper
             /// <summary>
             /// Constructon that copies the values of B2C options from configuration
             /// </summary>
-            /// <param name="b2cOptions"> B2C optionsl loaded from configuration </param>
+            /// <param name="b2cOptions"> B2C options loaded from configuration </param>
             public OpenIdConnectOptionsSetup(IOptions<AzureAdB2C> b2cOptions)
             {
                 AzureAdB2C = b2cOptions.Value;

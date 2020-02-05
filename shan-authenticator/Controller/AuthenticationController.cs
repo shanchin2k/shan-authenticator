@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 
 #endregion USING
 
@@ -19,6 +20,18 @@ namespace Shan.Authentication.API.Web.Controllers
     [Route("authenticationapi/Authentication")]
     public class AuthenticationController : ControllerBase
     {
+        // Public property to hold the B2C configurations
+        public AzureAdB2C AzureAdB2C { get; set; }
+
+        /// <summary>
+        /// Constructon that copies the values of B2C options from configuration
+        /// </summary>
+        /// <param name="b2cOptions"> B2C options loaded from configuration </param>
+        public AuthenticationController(IOptions<AzureAdB2C> b2cOptions)
+        {
+            AzureAdB2C = b2cOptions.Value;
+        }
+
         /// <summary>
         /// Request token from B2C
         /// During sign-in flow, this action is called second time when the user is getting authenticated 
@@ -39,7 +52,8 @@ namespace Shan.Authentication.API.Web.Controllers
             else
             {
                 // Redirect to authentication flow if the user is not signed-in 
-                var redirectUrl = DataConstant.SignInPath;
+                //var redirectUrl = AzureAdB2C.VirtualDirectory + DataConstant.SignInPath;
+                var redirectUrl = Request.Host + Request.PathBase + Request.Path;
                 return Challenge(
                     new Microsoft.AspNetCore.Authentication.AuthenticationProperties { RedirectUri = redirectUrl },
                     OpenIdConnectDefaults.AuthenticationScheme);
@@ -56,7 +70,8 @@ namespace Shan.Authentication.API.Web.Controllers
             // Initiate the SignOut flow if the user is authenticated 
             if (User.Identity.IsAuthenticated)
             {
-                var callbackUrl = DataConstant.SignOutPath;
+                //var callbackUrl = AzureAdB2C.VirtualDirectory + DataConstant.SignOutPath;
+                var redirectUrl = Request.Host + Request.PathBase + Request.Path;
                 return SignOut(new Microsoft.AspNetCore.Authentication.AuthenticationProperties { RedirectUri = callbackUrl },
                     CookieAuthenticationDefaults.AuthenticationScheme, OpenIdConnectDefaults.AuthenticationScheme);
             }

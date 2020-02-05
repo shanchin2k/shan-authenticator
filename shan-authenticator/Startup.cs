@@ -3,15 +3,16 @@
 using Shan.Authentication.API.Common;
 using Shan.Authentication.API.Entities;
 using Shan.Authentication.API.Web.ApiHelper;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Logging;
 using System;
 using System.Net;
 using System.Threading.Tasks;
@@ -69,6 +70,9 @@ namespace Shan.Authentication.API.Web
         /// <param name="services"> The Service collection</param>        
         public void ConfigureServices(IServiceCollection services)
         {
+            // Enable logging from authentication flow
+            IdentityModelEventSource.ShowPII = true;
+
             // Any exception occurred in Startup constructor then return to Configure method
             // there application will return with custom exception response.
             if (StartupException != null)
