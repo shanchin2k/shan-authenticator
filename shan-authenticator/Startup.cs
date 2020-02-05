@@ -108,9 +108,12 @@ namespace Shan.Authentication.API.Web
                 services.AddSingleton(appSettings.ApplicationInsights);
 
                 // Add framework services
-                // Contract resolver is initialized since default resolver is set as CamelCasePropertyNamesContractResolver by .Net core if not initialized
-                services.AddMvc()
-                    .AddNewtonsoftJson(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());
+                // Contract resolver is initialized since default resolver is set as CamelCasePropertyNamesContractResolver by .Net core if not initialized                
+                services.AddControllers().AddNewtonsoftJson(options =>
+                {
+                    // Use the default property (Pascal) casing
+                    options.SerializerSettings.ContractResolver = new DefaultContractResolver();                    
+                });
 
                 // Adds a default in-memory implementation of IDistributedCache.
                 services.AddDistributedMemoryCache();
