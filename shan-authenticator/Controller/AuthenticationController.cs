@@ -71,7 +71,7 @@ namespace Shan.Authentication.API.Web.Controllers
             if (User.Identity.IsAuthenticated)
             {
                 //var callbackUrl = AzureAdB2C.VirtualDirectory + DataConstant.SignOutPath;
-                var redirectUrl = Request.Host + Request.PathBase + Request.Path;
+                var callbackUrl = Request.Host + Request.PathBase + Request.Path;
                 return SignOut(new Microsoft.AspNetCore.Authentication.AuthenticationProperties { RedirectUri = callbackUrl },
                     CookieAuthenticationDefaults.AuthenticationScheme, OpenIdConnectDefaults.AuthenticationScheme);
             }
