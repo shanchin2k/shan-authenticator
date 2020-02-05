@@ -122,21 +122,7 @@
         /// </summary>
         public const string ResourceFileName = @"App_GlobalResources\authenticationresources.json";
 
-        #endregion FILE_NAMES
-
-        #region FILE_PATH
-
-        /// <summary>
-        /// Controller action path to which the login action redirect back 
-        /// </summary>
-        public const string SignInPath = "/authenticationapi/Authentication/SignIn";
-
-        /// <summary>
-        /// Controller action path to which the logout action redirect back 
-        /// </summary>
-        public const string SignOutPath = "/authenticationapi/Authentication/SignOut";
-
-        #endregion FILE_PATH
+        #endregion FILE_NAMES       
 
         #region SPECIAL_CHARACTERS
 
