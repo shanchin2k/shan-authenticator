@@ -1,0 +1,14 @@
+{
+  "ResponseMessage": {
+
+    // Exception on action complete
+    "AUTHENTICATION_003": "The request cannot be processed at the moment.",
+
+    // Success message upon user signed out
+    "AUTHENTICATION_201": "{0}",
+
+    // Success message upon user signed out
+    "AUTHENTICATION_202": "User signed out successfully."
+
+  }
+}
