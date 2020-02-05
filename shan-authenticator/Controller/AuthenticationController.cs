@@ -53,7 +53,7 @@ namespace Shan.Authentication.API.Web.Controllers
             {
                 // Redirect to authentication flow if the user is not signed-in 
                 //var redirectUrl = AzureAdB2C.VirtualDirectory + DataConstant.SignInPath;
-                var redirectUrl = Request.Host + Request.PathBase + Request.Path;
+                var redirectUrl = Request.Path;
                 return Challenge(
                     new Microsoft.AspNetCore.Authentication.AuthenticationProperties { RedirectUri = redirectUrl },
                     OpenIdConnectDefaults.AuthenticationScheme);
@@ -71,7 +71,7 @@ namespace Shan.Authentication.API.Web.Controllers
             if (User.Identity.IsAuthenticated)
             {
                 //var callbackUrl = AzureAdB2C.VirtualDirectory + DataConstant.SignOutPath;
-                var callbackUrl = Request.Host + Request.PathBase + Request.Path;
+                var callbackUrl = Request.Path;
                 return SignOut(new Microsoft.AspNetCore.Authentication.AuthenticationProperties { RedirectUri = callbackUrl },
                     CookieAuthenticationDefaults.AuthenticationScheme, OpenIdConnectDefaults.AuthenticationScheme);
             }
